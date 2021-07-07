@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Spider : Enemy
 {
-
     public override void Attack()
     {
         
@@ -12,6 +11,6 @@ public class Spider : Enemy
 
     public override void Update()
     {
-        throw new System.NotImplementedException();
+        
     }
 }
