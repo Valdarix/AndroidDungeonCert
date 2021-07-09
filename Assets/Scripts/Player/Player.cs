@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     }
     private bool IsGrounded()
     {
-        var groundCheck = Physics2D.Raycast(transform.position, Vector2.down, 1f);
+        var groundCheck = Physics2D.Raycast(transform.position ,Vector2.down, 1f);
         Debug.DrawRay(transform.position,Vector3.down * 1f,Color.green);
         var checkResult =  groundCheck.collider != null && groundCheck.collider.CompareTag($"Ground");
         if (checkResult)
