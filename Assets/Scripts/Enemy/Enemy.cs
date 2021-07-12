@@ -10,14 +10,18 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private List<Transform> waypoints;
     private int _currentWaypoint;
     [SerializeField] private SpriteRenderer sprite;
-    [SerializeField] private Animator anim;
+    [SerializeField] protected Animator anim;
     private static readonly int Idle = Animator.StringToHash("Idle");
-    
 
-    private void Start()
+    private protected virtual void Init()
     {
         if (waypoints.Count <= 0) return;
         _currentWaypoint = 1;
+    }
+    
+    private void Start()
+    {
+        Init();
     }
     
     public virtual void Attack()
@@ -27,7 +31,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void Update()
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).IsTag("Idle")) return;
+        if (anim.GetCurrentAnimatorStateInfo(0).IsTag("Idle") || anim.GetCurrentAnimatorStateInfo(0).IsTag("Hit")) return;
         
         sprite.flipX = waypoints[_currentWaypoint].transform.gameObject.name switch
         {
