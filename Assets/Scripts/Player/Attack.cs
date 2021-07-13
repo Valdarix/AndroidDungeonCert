@@ -9,5 +9,6 @@ public class Attack : MonoBehaviour
     {
         var hitTarget = other.GetComponent<IDamagable>();
         hitTarget?.Damage(1);
+        
     }
 }
