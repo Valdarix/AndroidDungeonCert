@@ -2,12 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamagable
 {
     [SerializeField] private float playerSpeed = 5.0f;
     [SerializeField] private float jumpPower = 5.0f;
-    [SerializeField] private Player_Animation_Contoller animationContoller;
-   
+    [SerializeField] private protected Player_Animation_Contoller animationController;
+    [SerializeField] private int _health;
+
+    public int Health { get; set; }
 
     private Rigidbody2D _playerRigidbody;
 
@@ -15,12 +17,12 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        Health = _health;
         _playerRigidbody = GetComponent<Rigidbody2D>();
         if (_playerRigidbody == null)
         {
             Debug.LogError("Player is missing a Rigidbody2D component");
         }
-
     }
     private void Update()
     {
@@ -31,12 +33,10 @@ public class Player : MonoBehaviour
             Attack();
         }
 
-        if (IsGrounded())
+        if (!IsGrounded()) return;
+        if (Input.GetButtonDown("Jump"))
         {
-            if (Input.GetButtonDown("Jump"))
-            {
-                Jump();
-            }
+            Jump();
         }
     }
     private void MovePlayer()
@@ -51,25 +51,19 @@ public class Player : MonoBehaviour
     }
     private bool IsGrounded()
     {
-        var groundCheck = Physics2D.Raycast(transform.position ,Vector2.down, 1f);
-        Debug.DrawRay(transform.position,Vector3.down * 1f,Color.green);
+        var position = transform.position;
+        var groundCheck = Physics2D.Raycast(position ,Vector2.down, 1f);
+        Debug.DrawRay(position,Vector3.down * 1f,Color.green);
         var checkResult =  groundCheck.collider != null && groundCheck.collider.CompareTag($"Ground");
-        if (checkResult)
-        {
-            animationContoller.TriggerJumpAnimation(false);
-        }
-        else
-        {
-            animationContoller.TriggerJumpAnimation(true);
-        }
-        
+        animationController.TriggerJumpAnimation(!checkResult);
+
         return checkResult;
     }
 
     private void Attack()
     {
         SetAttackStatus(true);
-        animationContoller.TriggerAttackAnimation();
+        animationController.TriggerAttackAnimation();
     }
 
     public void SetAttackStatus(bool status)
@@ -80,6 +74,16 @@ public class Player : MonoBehaviour
     public bool GetAttackStatus()
     {
         return _attacking;
+    }
+
+    public void Damage(int damageAmount)
+    {
+        Health -= damageAmount;
+        animationController.TriggerDamagedAnimation();
+        if (Health < 1)
+        {
+            //KILL THE PLAYER
+        }
     }
 
 }

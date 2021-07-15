@@ -7,9 +7,9 @@ public class Skeleton : Enemy, IDamagable
     public int Health { get; set; }
     private bool _canBeAttacked;
     private static readonly int Death = Animator.StringToHash("Death");
-    private static readonly int InCombat = Animator.StringToHash("InCombat");
     private static readonly int AttackTrigger = Animator.StringToHash("Attack");
- 
+    
+
     private protected override void Init()
     {
         base.Init();
@@ -18,28 +18,37 @@ public class Skeleton : Enemy, IDamagable
     }
     public void Damage(int damageAmount)
     {
-        StartCoroutine(Combat());
         if (!_canBeAttacked) return;
         anim.SetTrigger(Hit);
         Health -= damageAmount;
-        
+      
         if (Health < 1)
         {
+            anim.SetBool("InCombat", false);
+            IsFighting = false;
             anim.SetTrigger(Death);
-            Destroy(gameObject, 1f);
+            Destroy(transform.parent.gameObject, 1.5f);
         }
         _canBeAttacked = false;
     }
 
+    protected override void Attack()
+    {
+        if (IsFighting) return;
+        base.Attack();
+        StartCoroutine(Combat());
+    }
+
     private IEnumerator Combat()
     {
-        anim.SetBool(InCombat, true);
         while (Health > 0)
         {
             anim.SetTrigger(AttackTrigger);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.1f);
             anim.ResetTrigger(AttackTrigger); 
             yield return new WaitForSeconds(1.25f); 
+            if (!IsFighting)
+                yield break;
         }
     }
 
