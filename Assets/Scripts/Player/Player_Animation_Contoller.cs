@@ -92,4 +92,11 @@ public class Player_Animation_Contoller : MonoBehaviour
     {
         _animator.SetTrigger(Hit);
     }
+
+    public bool CanAttackFromAnimation()
+    {
+        var stateInfo = !_animator.GetCurrentAnimatorStateInfo(0).IsTag("Hit") && !_animator.GetCurrentAnimatorStateInfo(0).IsTag("Death");
+
+        return stateInfo;
+    }
 }

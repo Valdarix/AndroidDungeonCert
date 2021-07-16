@@ -131,7 +131,7 @@ MonoBehaviour:
   playerSpeed: 2.5
   jumpPower: 5
   animationController: {fileID: 2738503327284737322}
-  _health: 0
+  _health: 5
 --- !u!61 &874693822
 BoxCollider2D:
   m_ObjectHideFlags: 0
