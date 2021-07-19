@@ -9,7 +9,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable
     [SerializeField] protected int health;
     [SerializeField] protected int gems;
     [SerializeField] private List<Transform> waypoints;
-    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] protected SpriteRenderer sprite;
     [SerializeField] protected Animator anim;
     
     private bool _isFighting;
@@ -38,7 +38,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable
         Init();
     }
     
-    protected virtual void Attack()
+    public virtual void Attack()
     {
         if (!CanAttackFromAnimation()) return;
         anim.SetBool(InCombat, true);
