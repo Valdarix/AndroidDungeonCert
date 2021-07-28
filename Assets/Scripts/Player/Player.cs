@@ -9,6 +9,7 @@ public class Player : MonoBehaviour, IDamagable
     [SerializeField] private float jumpPower = 5.0f;
     [SerializeField] private protected Player_Animation_Contoller animationController;
     [SerializeField] private int _health;
+    public int _gems;
     private bool _canBeAttacked;
 
     public int Health { get; set; }
@@ -89,7 +90,6 @@ public class Player : MonoBehaviour, IDamagable
         {
             Destroy(transform.parent.gameObject);
         }
-
         _canBeAttacked = false;
     }
     
@@ -102,6 +102,11 @@ public class Player : MonoBehaviour, IDamagable
     {
         yield return new WaitForSeconds(0.5f);
         _canBeAttacked = true;
+    }
+
+    public void AddGems(int value)
+    {
+        _gems += value;
     }
 
 }

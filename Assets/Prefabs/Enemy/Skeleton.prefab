@@ -218,13 +218,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   health: 2
-  gems: 1
+  gemValue: 3
   waypoints:
   - {fileID: 2513541423442595294}
   - {fileID: 2513541422516801959}
   sprite: {fileID: 946964737143665918}
   anim: {fileID: 946964737143665919}
-  hitBox: {fileID: 8417743497089391415}
+  _gemObject: {fileID: 0}
 --- !u!61 &320257019
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -415,10 +415,5 @@ PrefabInstance:
 --- !u!4 &8417743497089391413 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5852691256071732414, guid: d9f9ee46d42e6b342800710bc0c8b87e, type: 3}
-  m_PrefabInstance: {fileID: 2731779162748397451}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &8417743497089391415 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 5852691256071732412, guid: d9f9ee46d42e6b342800710bc0c8b87e, type: 3}
   m_PrefabInstance: {fileID: 2731779162748397451}
   m_PrefabAsset: {fileID: 0}

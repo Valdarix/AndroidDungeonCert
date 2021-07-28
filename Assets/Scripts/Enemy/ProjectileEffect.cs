@@ -18,8 +18,8 @@ public class ProjectileEffect : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
-        
+        if (!other.CompareTag("PlayerController")) return;
+      
         var player = other.gameObject.GetComponent<Player>();
             
         player.Damage(1);

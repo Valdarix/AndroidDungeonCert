@@ -218,12 +218,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   health: 5
-  gems: 2
+  gemValue: 5
   waypoints:
   - {fileID: 3322914811905810296}
   - {fileID: 3322914811248444161}
   sprite: {fileID: 3322914810320680337}
   anim: {fileID: 3322914810320680338}
+  _gemObject: {fileID: 0}
 --- !u!61 &82754822
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -7,11 +7,13 @@ public abstract class Enemy : MonoBehaviour, IDamagable
 {
     [SerializeField] protected int speed;
     [SerializeField] protected int health;
-    [SerializeField] protected int gems;
+    [SerializeField] protected int gemValue;
     [SerializeField] private List<Transform> waypoints;
     [SerializeField] protected SpriteRenderer sprite;
     [SerializeField] protected Animator anim;
+    [SerializeField] private GameObject _gemObject;
     
+    private BoxCollider2D enemyCollider;
     private bool _isFighting;
     private bool _canBeAttacked;
     private Transform _playerTransform;
@@ -29,6 +31,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable
         if (waypoints.Count <= 0) return;
         _currentWaypoint = 1;
         _playerTransform = GameObject.FindWithTag("PlayerController").transform;
+        enemyCollider = GetComponent<BoxCollider2D>();
         Health = health; 
         _canBeAttacked = true;
     }
@@ -109,11 +112,18 @@ public abstract class Enemy : MonoBehaviour, IDamagable
         if (!_canBeAttacked) return;
         anim.SetTrigger(Hit);
         Health -= damageAmount;
-        if (Health < 1)
+        if (Health == 0)
         {
+            enemyCollider.enabled = false;
+            _canBeAttacked = false;
             anim.SetBool(InCombat, false);
             _isFighting = false;
             anim.SetBool(Death, true);
+            
+            var instantiationPoint = sprite.transform;
+            var gem = Instantiate(_gemObject, instantiationPoint.position, Quaternion.identity);
+            gem.gameObject.GetComponent<Diamond>().SetValue(gemValue);
+            
             Destroy(transform.parent.gameObject, 1.5f);
         }
         _canBeAttacked = false;
@@ -128,9 +138,9 @@ public abstract class Enemy : MonoBehaviour, IDamagable
                 yield break;
             }
             anim.SetTrigger(AttackTrigger);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.25f);
             anim.ResetTrigger(AttackTrigger); 
-            yield return new WaitForSeconds(1.50f);
+            yield return new WaitForSeconds(1.75f);
         }
     }
     
@@ -139,6 +149,17 @@ public abstract class Enemy : MonoBehaviour, IDamagable
         var stateInfo = !anim.GetCurrentAnimatorStateInfo(0).IsTag("Hit") && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Death");
 
         return stateInfo;
+    }
+
+    private IEnumerator OnDeath()
+    {
+        while (true)
+        {
+            sprite.enabled = false;
+            yield return new WaitForSeconds(0.2f);
+            sprite.enabled = true;
+            
+        }
     }
 
 }

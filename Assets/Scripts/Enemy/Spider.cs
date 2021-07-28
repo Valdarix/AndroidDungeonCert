@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spider : Enemy
@@ -14,8 +11,8 @@ public class Spider : Enemy
 
     public override void Attack()
     {
-        var instantionPoint = sprite.transform;
-        var acidShot = Instantiate(acidProjectile, instantionPoint.position, Quaternion.identity);
-        acidShot.gameObject.transform.parent = instantionPoint;
+        var instantiationPoint = sprite.transform;
+        var acidShot = Instantiate(acidProjectile, instantiationPoint.position, Quaternion.identity);
+        acidShot.gameObject.transform.parent = instantiationPoint;
     }
 }
