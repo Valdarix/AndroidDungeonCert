@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour, IDamagable
 {
@@ -9,7 +7,7 @@ public class Player : MonoBehaviour, IDamagable
     [SerializeField] private float jumpPower = 5.0f;
     [SerializeField] private protected Player_Animation_Contoller animationController;
     [SerializeField] private int _health;
-    public int _gems;
+    private int _gems;
     private bool _canBeAttacked;
 
     public int Health { get; set; }
@@ -107,6 +105,16 @@ public class Player : MonoBehaviour, IDamagable
     public void AddGems(int value)
     {
         _gems += value;
+    }
+    
+    public void RemoveGems(int value)
+    {
+        _gems -= value;
+    }
+
+    public int GetCurrentGems()
+    {
+        return _gems;
     }
 
 }
