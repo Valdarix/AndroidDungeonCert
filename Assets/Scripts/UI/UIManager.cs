@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Text playerGemCountText;
     [SerializeField] private Image selectionImage;
-
+    
     public void UpdateGemCountText(int gemCount)
     {
         playerGemCountText.text = gemCount + " G";
@@ -31,10 +31,11 @@ public class UIManager : MonoBehaviour
 
     public void UpdateShopSelection(int yPos)
     {
+        
         selectionImage.rectTransform.anchoredPosition =
             new Vector2(selectionImage.rectTransform.anchoredPosition.x, yPos);
     }
-    
+
 
     private void Awake()
     {

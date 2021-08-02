@@ -7,7 +7,7 @@ public class Player : MonoBehaviour, IDamagable
     [SerializeField] private float jumpPower = 5.0f;
     [SerializeField] private protected Player_Animation_Contoller animationController;
     [SerializeField] private int _health;
-    private int _gems;
+    [SerializeField] private int _gems;
     private bool _canBeAttacked;
 
     public int Health { get; set; }
