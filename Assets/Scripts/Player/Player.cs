@@ -20,6 +20,7 @@ public class Player : MonoBehaviour, IDamagable
     {
         _canBeAttacked = true;
         Health = _health; // this is the only place _health is used. Provides default starting health from the inspector. 
+        UIManager.Instance.UpdatePlayerHealth(Health);
         _playerRigidbody = GetComponent<Rigidbody2D>();
         if (_playerRigidbody == null)
         {
@@ -58,7 +59,7 @@ public class Player : MonoBehaviour, IDamagable
         Debug.DrawRay(position,Vector3.down * 1f,Color.green);
         var checkResult =  groundCheck.collider != null && groundCheck.collider.CompareTag($"Ground");
         animationController.TriggerJumpAnimation(!checkResult);
-
+        
         return checkResult;
     }
 
@@ -84,6 +85,8 @@ public class Player : MonoBehaviour, IDamagable
         if (!_canBeAttacked) return;
         Health -= damageAmount;
         animationController.TriggerDamagedAnimation();
+        Debug.Log(Health);
+        UIManager.Instance.UpdatePlayerHealth(Health);
         if (Health < 1)
         {
             Destroy(transform.parent.gameObject);
@@ -105,11 +108,13 @@ public class Player : MonoBehaviour, IDamagable
     public void AddGems(int value)
     {
         _gems += value;
+        UIManager.Instance.UpdateGemCountText(_gems);
     }
     
     public void RemoveGems(int value)
     {
         _gems -= value;
+        UIManager.Instance.UpdateGemCountText(_gems);
     }
 
     public int GetCurrentGems()
