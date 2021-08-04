@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class Player : MonoBehaviour, IDamagable
 {
@@ -44,7 +45,7 @@ public class Player : MonoBehaviour, IDamagable
     }
     private void MovePlayer()
     {
-        var horizontalInput = Input.GetAxisRaw("Horizontal");
+        var horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
         _playerRigidbody.velocity = new Vector2(horizontalInput * playerSpeed, _playerRigidbody.velocity.y);
     }
 

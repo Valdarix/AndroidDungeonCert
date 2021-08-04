@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class Player_Animation_Contoller : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class Player_Animation_Contoller : MonoBehaviour
     private void Update()
     {
         var effectsRendererTransform = effectsRenderer.transform;
-        if (Input.GetAxisRaw("Horizontal") > 0)
+        if (CrossPlatformInputManager.GetAxis("Horizontal") > 0)
         {
             const bool shouldFlip = false;
             _renderer.flipX = shouldFlip;
@@ -51,7 +52,7 @@ public class Player_Animation_Contoller : MonoBehaviour
             newPos.x = 0.515f;
             effectsRendererTransform.localPosition = newPos;
         }
-        else if (Input.GetAxisRaw("Horizontal") < 0)
+        else if (CrossPlatformInputManager.GetAxis("Horizontal") < 0)
         {
             const bool shouldFlip = true;
             _renderer.flipX = shouldFlip;
