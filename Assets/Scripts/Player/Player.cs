@@ -32,20 +32,20 @@ public class Player : MonoBehaviour, IDamagable
     {
         MovePlayer();
 
-        if (Input.GetButtonDown("Attack"))
+        if (CrossPlatformInputManager.GetButtonDown("Attack"))
         {
             Attack();
         }
 
         if (!IsGrounded()) return;
-        if (Input.GetButtonDown("Jump"))
+        if (CrossPlatformInputManager.GetButtonDown("Jump"))
         {
             Jump();
         }
     }
     private void MovePlayer()
     {
-        var horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
+        var horizontalInput = CrossPlatformInputManager.GetAxisRaw("Horizontal");
         _playerRigidbody.velocity = new Vector2(horizontalInput * playerSpeed, _playerRigidbody.velocity.y);
     }
 

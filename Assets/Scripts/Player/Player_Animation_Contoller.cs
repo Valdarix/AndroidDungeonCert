@@ -39,7 +39,8 @@ public class Player_Animation_Contoller : MonoBehaviour
     private void Update()
     {
         var effectsRendererTransform = effectsRenderer.transform;
-        if (CrossPlatformInputManager.GetAxis("Horizontal") > 0)
+        Debug.Log(CrossPlatformInputManager.GetAxisRaw("Horizontal"));
+        if (CrossPlatformInputManager.GetAxisRaw("Horizontal") > 0)
         {
             const bool shouldFlip = false;
             _renderer.flipX = shouldFlip;
@@ -52,7 +53,7 @@ public class Player_Animation_Contoller : MonoBehaviour
             newPos.x = 0.515f;
             effectsRendererTransform.localPosition = newPos;
         }
-        else if (CrossPlatformInputManager.GetAxis("Horizontal") < 0)
+        else if (CrossPlatformInputManager.GetAxisRaw("Horizontal") < 0)
         {
             const bool shouldFlip = true;
             _renderer.flipX = shouldFlip;
@@ -65,7 +66,7 @@ public class Player_Animation_Contoller : MonoBehaviour
             newPos.x = -0.515f;
             effectsRendererTransform.localPosition = newPos;
         }
-        _animator.SetFloat(MovementSpeed, Mathf.Abs(Input.GetAxisRaw("Horizontal")));
+        _animator.SetFloat(MovementSpeed, Mathf.Abs(CrossPlatformInputManager.GetAxisRaw("Horizontal")));
     }
 
     private void OnTriggerEnter(Collider other)
