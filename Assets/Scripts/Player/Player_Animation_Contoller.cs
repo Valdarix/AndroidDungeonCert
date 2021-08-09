@@ -39,7 +39,6 @@ public class Player_Animation_Contoller : MonoBehaviour
     private void Update()
     {
         var effectsRendererTransform = effectsRenderer.transform;
-        Debug.Log(CrossPlatformInputManager.GetAxisRaw("Horizontal"));
         if (CrossPlatformInputManager.GetAxisRaw("Horizontal") > 0)
         {
             const bool shouldFlip = false;
